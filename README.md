@@ -1,55 +1,66 @@
-# README Template
 
-Below is a template provided for use when building your README file for students.
+# Fashion Review Recommendation Prediction ![Static Badge](https://img.shields.io/badge/version-1.0.0-green)
 
-# Project Title
+This repostiory contains code and resources to run predicitions on reviews for fashion items (items of clothing) left by customers to determine whether or not the item/product is recommended by the customer, based on the review, or not recommended.
 
-Project description goes here.
+This task is framed as:
 
-## Getting Started
+Binary text classification (recommend vs not recommend)
 
-Instructions for how to get a copy of the project running on your local machine.
+Labels:
 
-### Dependencies
+1 = recommends
+0 = does not recommend
 
-```
-Examples here
-```
+It is not pure sentiment analysis:
 
-### Installation
+A review can be positive but not recommend (“Nice design but size runs too small”)
+A review can be negative but still recommend (“Quality is average, still good for the price”)
 
-Step by step explanation of how to get a dev environment running.
+✅ So we care about intent to recommend, not just polarity
 
-List out the steps
+Predictions are done using NLP. spaCy is the primiary library used for NLP and I have additionally created a 'Sentiment Score' feature to assist with prediction using HuggingFace.
 
-```
-Give an example here
-```
+Data pre-processing and predictions are implemented using Scikit-Learn Pipelines.
 
-## Testing
 
-Explain the steps needed to run any automated tests
+## Created
+- Project created: April 2026
+- Readme updated: 19 April 2026
 
-### Break Down Tests
+## Files in the repository
 
-Explain what each test does and why
+<code>Fashion_prediction_pipeline.ipynb</code> - this is the jupyter notebook that contains the EDA, data pre-processing and classification.  
+<code>sentiment_score.csv</code> - these are the HuggingFace generated sentiment scores for each fashion item review. Given 'sentiment_score' is used as a static feature this file is included so that the sentiment analysis processing <b>does not</b> have to be re-run each time the notebook is run, saving on compute time.  
+<code>data/reviews.csv</code> - the labelled data set containing the fashion reviews on which the model is trained and predictions are run.
 
-```
-Examples here
-```
+## Dependencies
+You will need <code>python</code> along with the 'standard' data science related libraries we all know and love to run the <code>notebook</code> as well as those required for the NLP and Sentiment Analysis
 
-## Project Instructions
+Libraries (latest versions will run fine)
 
-This section should contain all the student deliverables for this project.
+- numpy
+- pandas
+- matplotlib
+- seaborn
+- sklearn (scikit learn)
+- tqdm
+- functools (from Python standard library)
+- os (from Python standard library)
 
-## Built With
+Libraries for NLP
+- spacy with 'en_core_web_md' model
 
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
+Libraries for Sentiment Analysis with HuggingFace
+- torch (Pytorch)
+- transformers
+- HuggingFace model: DistilBERT SST-2 pretrained model -  'distilbert-base-uncased-finetuned-sst-2-english'
 
-Include all items used to build project.
+## Credits 🤝
+A huge thanks to the Udacity teams without whom this project would not have been possible.
 
-## License
+## License 📜
+As per License.txt file.
 
-[License](LICENSE.txt)
+We ❤️ [Udacity!](https://udacity.com)
+
