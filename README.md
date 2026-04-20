@@ -28,10 +28,20 @@ Data pre-processing and predictions are implemented using Scikit-Learn Pipelines
 - Project created: April 2026
 - Readme updated: 19 April 2026
 
-## Files in the repository
+## Project Structure
 
-<code>Fashion_prediction_pipeline.ipynb</code> - this is the jupyter notebook that contains the EDA, data pre-processing and classification.  
-<code>sentiment_score.csv</code> - these are the HuggingFace generated sentiment scores for each fashion item review. Given 'sentiment_score' is used as a static feature this file is included so that the sentiment analysis processing <b>does not</b> have to be re-run each time the notebook is run, saving on compute time.  
+pipeline_project/
+├── data/
+│   └── reviews.csv                     # Primary dataset
+├── piepline_cache/                     # (Note: check for spelling vs 'pipeline_cache')
+├── pipeline_cache/                     # Joblib caching folder storing the cached output of pipeline steps
+├── Fashion_prediction_pipeline.ipynb   # Main project notebook
+├── LICENSE.txt                         # Project license info
+├── README.md                           # Project documentation
+
+## Important files in the repository
+
+<code>Fashion_prediction_pipeline.ipynb</code> - this is the jupyter notebook that contains the EDA, data pre-processing and classification. This is the notebook to run
 <code>data/reviews.csv</code> - the labelled data set containing the fashion reviews on which the model is trained and predictions are run.
 
 ## Dependencies
@@ -55,6 +65,17 @@ Libraries for Sentiment Analysis with HuggingFace
 - torch (Pytorch)
 - transformers
 - HuggingFace model: DistilBERT SST-2 pretrained model -  'distilbert-base-uncased-finetuned-sst-2-english'
+
+
+## Running the Notebook ▶️
+
+
+#### Expected Runtime
+
+To optimize performance, the pipeline utilizes Joblib Memory caching. This ensures that deterministic preprocessing steps (Lemmatization and Sentiment Scoring) are computed only once per cross-validation fold. This maintains a clear Inference Contract, as the pipeline accepts raw text and handles all transformations internally without requiring external offline scripts.
+
+However the HuggingFace (sentiment score) feature generation and Lemmatization are computationally heavy and will therefore likely take sometime to run.
+For a PC with an Intel Core Ultra 5 - 135U with 16 GB RAM the tasks take a collective ~13 minutes to complete on the Training data (80% of the total dataset)
 
 ## Credits 🤝
 A huge thanks to the Udacity teams without whom this project would not have been possible.
