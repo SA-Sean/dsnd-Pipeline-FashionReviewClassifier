@@ -30,6 +30,7 @@ Data pre-processing and predictions are implemented using Scikit-Learn Pipelines
 
 ## Project Structure
 
+```text
 pipeline_project/
 ├── data/
 │   └── reviews.csv                             # Primary dataset
@@ -38,12 +39,13 @@ pipeline_project/
 ├── LICENSE.txt                                 # Project license info
 ├── nlp_stages.py                               # Separate file containing Spacy Lemmatizer custom transformer class. Done in this manner to keep memory cache file paths shorter. 
 ├── README.md                                   # Project documentation
-
+└── requirements.txt
+```
 
 ## Important files in the repository
 
-<code>Fashion_prediction_pipeline.ipynb</code> - this is the jupyter notebook that contains the EDA, data pre-processing and classification. This is the notebook to run
-<code>data/reviews.csv</code> - the labelled data set containing the fashion reviews on which the model is trained and predictions are run.
+<code>Fashion_prediction_pipeline.ipynb</code> - this is the jupyter notebook that contains the EDA, data pre-processing and classification. This is the notebook to run  
+<code>data/reviews.csv</code> - the labelled data set containing the fashion reviews on which the model is trained and predictions are run.  
 <code>nlp_stages.py</code> - Separate file containing Spacy Lemmatizer custom transformer class. Done in this manner to keep memory cache file paths shorter.
 
 ## Dependencies
@@ -69,13 +71,10 @@ Libraries for NLP
 The first <code>code</code> cell in the notebook must be run. 
 Thereafter all cells from the 'Data Preparation' section must be run. Alternatively run all cells starting at the beggining.
 
-Ensure the spaCy library is installed with the 'en_core_web_sm' model.
-
-
+Ensure the spaCy library is installed with the 'en_core_web_sm' model.  
 Steps to install spacy with en_core_web_sm:
-
-pip install -U spacy
-python -m spacy download en_core_web_sm
+- pip install -U spacy  
+- python -m spacy download en_core_web_sm
 
 #### Expected Runtime: ~ 25 mins (on an intel core ultra 5 with 16 GB ram)
 
