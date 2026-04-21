@@ -19,33 +19,35 @@ A review can be negative but still recommend (“Quality is average, still good 
 
 ✅ So we care about intent to recommend, not just polarity
 
-Predictions are done using NLP. spaCy is the primiary library used for NLP and I have additionally created a 'Sentiment Score' feature to assist with prediction using HuggingFace.
+Predictions are done using NLP. spaCy is the primiary library used for NLP.
 
 Data pre-processing and predictions are implemented using Scikit-Learn Pipelines.
 
 
 ## Created
 - Project created: April 2026
-- Readme updated: 19 April 2026
+- Readme updated: 21 April 2026
 
 ## Project Structure
 
 pipeline_project/
 ├── data/
-│   └── reviews.csv                     # Primary dataset
-├── piepline_cache/                     # (Note: check for spelling vs 'pipeline_cache')
-├── pipeline_cache/                     # Joblib caching folder storing the cached output of pipeline steps
-├── Fashion_prediction_pipeline.ipynb   # Main project notebook
-├── LICENSE.txt                         # Project license info
-├── README.md                           # Project documentation
+│   └── reviews.csv                             # Primary dataset
+├── Fashion_prediction_pipeline.ipynb           # Main project notebook
+├── final_Fashion_Classification_mdoel.pkl      # export of the final tuned model for production use 
+├── LICENSE.txt                                 # Project license info
+├── nlp_stages.py                               # Separate file containing Spacy Lemmatizer custom transformer class. Done in this manner to keep memory cache file paths shorter. 
+├── README.md                                   # Project documentation
+
 
 ## Important files in the repository
 
 <code>Fashion_prediction_pipeline.ipynb</code> - this is the jupyter notebook that contains the EDA, data pre-processing and classification. This is the notebook to run
 <code>data/reviews.csv</code> - the labelled data set containing the fashion reviews on which the model is trained and predictions are run.
+<code>nlp_stages.py</code> - Separate file containing Spacy Lemmatizer custom transformer class. Done in this manner to keep memory cache file paths shorter.
 
 ## Dependencies
-You will need <code>python</code> along with the 'standard' data science related libraries we all know and love to run the <code>notebook</code> as well as those required for the NLP and Sentiment Analysis
+You will need <code>python</code> along with the 'standard' data science related libraries we all know and love to run the <code>notebook</code> as well as those required for the NLP
 
 Libraries (latest versions will run fine)
 
@@ -59,23 +61,25 @@ Libraries (latest versions will run fine)
 - os (from Python standard library)
 
 Libraries for NLP
-- spacy with 'en_core_web_md' model
-
-Libraries for Sentiment Analysis with HuggingFace
-- torch (Pytorch)
-- transformers
-- HuggingFace model: DistilBERT SST-2 pretrained model -  'distilbert-base-uncased-finetuned-sst-2-english'
+- spacy with 'en_core_web_sm' model
 
 
 ## Running the Notebook ▶️
 
+The first <code>code</code> cell in the notebook must be run. 
+Thereafter all cells from the 'Data Preparation' section must be run. Alternatively run all cells starting at the beggining.
 
-#### Expected Runtime
+Ensure the spaCy library is installed with the 'en_core_web_sm' model.
 
-To optimize performance, the pipeline utilizes Joblib Memory caching. This ensures that deterministic preprocessing steps (Lemmatization and Sentiment Scoring) are computed only once per cross-validation fold. This maintains a clear Inference Contract, as the pipeline accepts raw text and handles all transformations internally without requiring external offline scripts.
 
-However the HuggingFace (sentiment score) feature generation and Lemmatization are computationally heavy and will therefore likely take sometime to run.
-For a PC with an Intel Core Ultra 5 - 135U with 16 GB RAM the tasks take a collective ~13 minutes to complete on the Training data (80% of the total dataset)
+Steps to install spacy with en_core_web_sm:
+
+pip install -U spacy
+python -m spacy download en_core_web_sm
+
+#### Expected Runtime: ~ 25 mins (on an intel core ultra 5 with 16 GB ram)
+
+NOTE: To optimize performance, the pipeline utilizes Joblib Memory caching within the Lemmatiser transformer. This ensures that deterministic preprocessing steps (Lemmatization) are computed only once per cross-validation fold. This maintains a clear Inference Contract, as the pipeline accepts raw text and handles all transformations internally without requiring external offline scripts.
 
 ## Credits 🤝
 A huge thanks to the Udacity teams without whom this project would not have been possible.
